@@ -1,18 +1,20 @@
 #include "Commons.h"
 
+string BinToHex(bitset<8> bitset);
+
 int main(){
-    string input;
+    string input, HexInputString;
     getline(cin, input);
     
-    cout << "String: " << input << endl;
-    cout << "Binary representation:" << endl;
-    
-    // Iterate over each character in the string
+
     for (char c : input) {
-        // Convert the character to its ASCII value and then to binary using bitset
         bitset<8> binary(static_cast<unsigned char>(c));
-        cout << c << " : " << binary << endl;
+        HexInputString += BinToHex(binary);
     }
-
-
 }
+    string BinToHex(bitset<8> bitset){
+            unsigned int bit = bitset.to_ulong();
+            stringstream hexStream;
+            hexStream << hex << setw(2) << setfill('0') << bit;
+            return hexStream.str();
+    }
