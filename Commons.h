@@ -8,7 +8,6 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
-
 using std::string;
 using std::cout;
 using std::cin;
