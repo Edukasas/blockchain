@@ -32,13 +32,13 @@ unsigned int bitsetToInt(bitset<8> bitset)
 }
 unsigned int Hash(const string& input)
 {
-    unsigned int hash = 0xFAFAFAFA; // Initial hash value
+    unsigned int hash = 0xFA153BE9;
     for (char c : input)
     {
         bitset<8> binary(static_cast<unsigned char>(c));
         binary = swap4Bits(binary);
-        hash ^= bitsetToInt(binary) * 0x1000193;
-        hash = (hash << 5) | (hash >> (32 - 5));
+        hash ^= bitsetToInt(binary) * 0x10E93214;
+        hash = (hash << 5) | (hash >> 27);
     }
     return hash;
 }
