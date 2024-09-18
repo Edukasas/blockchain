@@ -33,13 +33,12 @@ unsigned int bitsetToInt(bitset<8> bitset)
 string Hash(const string& input)
 {
     const int hash_parts = 4;
-    unsigned long long hash = 0xFA153BE9AB2842EA;
-    unsigned long long hashes[hash_parts];
-
-
-    for (int i = 0; i < hash_parts; ++i) {
-        hashes[i] = hash;
-    }
+    unsigned long long hashes[hash_parts]  = {
+        0xFA153BE9AB2842EAULL,
+        0xBABABABA01032587ULL,
+        0xC0DE15500DAFFAE7ULL,
+        0x1234567812345678ULL
+    };
 
     for (char c : input)
     {
@@ -47,7 +46,7 @@ string Hash(const string& input)
         binary = swap4Bits(binary);
         for (int i = 0; i < hash_parts; ++i) {
             hashes[i] ^= static_cast<unsigned long long>(bitsetToInt(binary)) * 0x10E93214ULL;
-            hashes[i] = (hashes[i] << 5) | (hashes[i] >> (64 - 5));
+            hashes[i] = (hashes[i] << 5) | (hashes[i] >> (64-i));
         }
     }
 
