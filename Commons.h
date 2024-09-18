@@ -18,6 +18,7 @@ using std::bitset;
 using std::vector;
 using std::to_string;
 using std::stringstream;
+using std::ostringstream;
 using std::hex;
 using std::setw;
 using std::setfill;

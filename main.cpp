@@ -2,7 +2,7 @@
 string intToHex(unsigned int byte);
 unsigned int bitsetToInt(bitset<8> bitset);
 bitset<8> swap4Bits(const std::bitset<8> &bits);
-unsigned int Hash(const string& input);
+string Hash(const string& input);
 
 int main()
 {
@@ -10,8 +10,8 @@ int main()
     int decimal;
 
     getline(cin, input);
-    unsigned int hashValue = Hash(input);
-    cout << "Hash: " << intToHex(hashValue) << endl;
+    string hashValue = Hash(input);
+    cout << "Hash: " << hashValue << endl;
 }
 string intToHex(unsigned int byte)
 {
@@ -30,15 +30,30 @@ unsigned int bitsetToInt(bitset<8> bitset)
 {
     return bitset.to_ulong();
 }
-unsigned int Hash(const string& input)
+string Hash(const string& input)
 {
-    unsigned int hash = 0xFA153BE9;
+    const int hash_parts = 4;
+    unsigned long long hash = 0xFA153BE9AB2842EA;
+    unsigned long long hashes[hash_parts];
+
+
+    for (int i = 0; i < hash_parts; ++i) {
+        hashes[i] = hash;
+    }
+
     for (char c : input)
     {
         bitset<8> binary(static_cast<unsigned char>(c));
         binary = swap4Bits(binary);
-        hash ^= bitsetToInt(binary) * 0x10E93214;
-        hash = (hash << 5) | (hash >> 27);
+        for (int i = 0; i < hash_parts; ++i) {
+            hashes[i] ^= static_cast<unsigned long long>(bitsetToInt(binary)) * 0x10E93214ULL;
+            hashes[i] = (hashes[i] << 5) | (hashes[i] >> (64 - 5));
+        }
     }
-    return hash;
+
+    ostringstream result;
+    for (int i = 0; i < hash_parts; ++i) {
+        result << hex << setw(16) << setfill('0') << hashes[i];
+    }
+    return result.str();
 }
