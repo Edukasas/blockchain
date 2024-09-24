@@ -9,8 +9,10 @@
 #include <sstream>
 #include <iomanip>
 #include <limits>
+#include <random>
 
 using std::ifstream;
+using std::ofstream;
 using std::string;
 using std::cout;
 using std::cin;
