@@ -62,7 +62,7 @@ Before running this project, ensure you have the following installed:
 
 ## Usage
 
-After running the program, you will be prompted to enter a string. The program will process the string through the custom hash function and output the resulting hexadecimal hash.
+After running the program, you will be prompted to enter a string or choose a filename, which already has a string. The program will process the string through the custom hash function and output the resulting hexadecimal hash.
 
 ```bash
 $ ./hash_function
