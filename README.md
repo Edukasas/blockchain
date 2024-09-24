@@ -8,6 +8,8 @@ This project implements a basic custom hash function in C++, which manipulates b
 - XOR and bit rotation operations to generate a hashed output.
 - Outputs a unique hexadecimal hash value for any input string.
 - Possibility to input by hand or with external file
+- Generation of file which contains string pairs
+- Comparison between Hashes
 
 ## Installation
 
@@ -85,6 +87,13 @@ After running the program, you will be prompted to enter a string or choose a fi
 <b> Based on results: </b>
 
 The algorithm likely falls into the O(n log n) complexity class
+
+<b> Third experiment shows, that my hash function is resiliant to coalitions  </b> <br>
+It was made using a file, which had 100 000 string pairs of different length <br>
+They were compared in order to find any matches, none were found <br>
+
+![image](https://github.com/user-attachments/assets/91aeb8eb-1a30-4a23-88df-7c649f66dc42)
+
 
 ```bash
 $ ./hash_function
