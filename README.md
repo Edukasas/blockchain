@@ -7,7 +7,7 @@ This project implements a basic custom hash function in C++, which manipulates b
 - Custom bit manipulation (swapping 4-bit halves).
 - XOR and bit rotation operations to generate a hashed output.
 - Outputs a unique hexadecimal hash value for any input string.
-
+- Possibility to input by hand or with external file
 
 ## Installation
 
