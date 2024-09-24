@@ -53,3 +53,22 @@ string readFromFile(const string &filename)
     
     return buffer.str();
 }
+string readLinesFromFile(const string &filename, int numLines) {
+    ifstream file(filename);
+    stringstream buffer;
+    string line;
+    int linesRead = 0;
+
+    if (!file.is_open()) {
+        cerr << "Error: File cannot be opened or does not exist." << endl;
+        return "";
+    }
+
+    while (linesRead < numLines && getline(file, line)) {
+        buffer << line << "\n";
+        linesRead++;
+    }
+
+    file.close();
+    return buffer.str();
+}
