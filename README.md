@@ -94,6 +94,15 @@ They were compared in order to find any matches, none were found <br>
 
 ![image](https://github.com/user-attachments/assets/91aeb8eb-1a30-4a23-88df-7c649f66dc42)
 
+<b> Fourth experimemnt </b>
+- bit level
+
+  ![image](https://github.com/user-attachments/assets/c9e04a46-ea06-4470-922e-bc123aeb3607)
+
+- hex level
+
+  ![image](https://github.com/user-attachments/assets/fefc9a1e-bb9b-4f8a-8ffc-5471d083ad37)
+
 
 ```bash
 $ ./hash_function
