@@ -64,6 +64,28 @@ Before running this project, ensure you have the following installed:
 
 After running the program, you will be prompted to enter a string or choose a filename, which already has a string. The program will process the string through the custom hash function and output the resulting hexadecimal hash.
 
+## Experiments
+<b>First experiment shows that my hash function: </b>
+- is deterministic
+- can handle any input
+- gives exactly 64 chars
+
+![e1](https://github.com/Edukasas/blockchain/blob/master/assets/e1.png) <br>
+
+<b>Second experiment shows the speed of my hash function (no flags used):</b><br>
+- left side is speed in seconds
+- right side is number of lines given as input
+  
+![e2](https://github.com/Edukasas/blockchain/blob/master/assets/e2.png) <br>
+
+<b> Graph of the hash functions execution time based on input size </b><br>
+
+![graph](https://github.com/Edukasas/blockchain/blob/master/assets/graph.png) <br>
+
+<b> Based on results: </b>
+
+The algorithm likely falls into the O(n log n) complexity class
+
 ```bash
 $ ./hash_function
 Enter input: Hello
