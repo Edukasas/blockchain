@@ -8,6 +8,9 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include <limits>
+
+using std::ifstream;
 using std::string;
 using std::cout;
 using std::cin;
@@ -22,5 +25,8 @@ using std::ostringstream;
 using std::hex;
 using std::setw;
 using std::setfill;
+using std::cerr;
+using std::numeric_limits;
+using std::invalid_argument;
 
 #endif
