@@ -7,3 +7,5 @@ string readFromFile(const string &filename);
 string readLinesFromFile(const string &filename, int numLines);
 void generateRandomStringPairs(int stringLength, int numPairs, const string& filename);
 void compareStringPairs(const string& filename);
+void compareStringPairsBitLevel(const string& filename);
+void compareStringPairsHexLevel(const string &filename);

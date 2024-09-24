@@ -5,7 +5,9 @@
 
 int main()
 {
-    compareStringPairs("test_files/randomPairs/file.txt");
+    compareStringPairsBitLevel("test_files/similarPairs/file.txt");
+    compareStringPairsHexLevel("test_files/similarPairs/file.txt");
+    // compareStringPairs("test_files/randomPairs/file.txt");
     // std::vector<double> rez(10, 0), names(10, 0);
     // for (int j = 0; j < 5; j++){
     // int num = 1;

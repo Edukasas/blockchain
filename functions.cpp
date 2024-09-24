@@ -7,7 +7,7 @@ string intToHex(unsigned int byte)
     hexStream << hex << setw(2) << setfill('0') << byte;
     return hexStream.str();
 }
-bitset<8> swap4Bits(const std::bitset<8> &bits)
+bitset<8> swap4Bits(const bitset<8> &bits)
 {
     bitset<4> first4(bits.to_ulong() >> 4);
     bitset<4> last4(bits.to_ullong() & 0x0F);
@@ -99,4 +99,112 @@ void compareStringPairs(const string &filename)
     inFile.close();
 
     cout << "Total matches found between pairs: " << matchCount << endl;
+}
+void compareStringPairsBitLevel(const string &filename)
+{
+    ifstream inFile(filename);
+    if (!inFile)
+    {
+        cerr << "Error opening file for reading: " << filename << endl;
+        return;
+    }
+
+    string str1, str2;
+    vector<double> percentages;
+    double minPercentage = 100.0;
+    double maxPercentage = 0.0;
+    double totalPercentage = 0.0;
+    int count = 0;
+
+    while (inFile >> str1 >> str2)
+    {
+        int matchCount = 0;
+        str1 = Hash(str1);
+        str2 = Hash(str2);
+        int totalBits = str1.length() * 8;
+
+        for (size_t i = 0; i < str1.length(); ++i)
+        {
+            bitset<8> bits1(str1[i]);
+            bitset<8> bits2(str2[i]);
+
+            for (size_t bit = 0; bit < 8; ++bit)
+            {
+                if (bits1[bit] == bits2[bit])
+                {
+                    matchCount++;
+                }
+            }
+        }
+
+        double percentage = (static_cast<double>(matchCount) / totalBits) * 100.0;
+
+        minPercentage = min(minPercentage, percentage);
+        maxPercentage = max(maxPercentage, percentage);
+        totalPercentage += percentage;
+        count++;
+    }
+
+    inFile.close();
+
+    double averagePercentage = (count > 0) ? (totalPercentage / count) : 0.0;
+
+    cout << fixed << setprecision(2);
+    cout << "Lowest matching percentage: " << minPercentage << "%" << endl;
+    cout << "Highest matching percentage: " << maxPercentage << "%" << endl;
+    cout << "Average matching percentage: " << averagePercentage << "%" << endl;
+}
+void compareStringPairsHexLevel(const string &filename)
+{
+    ifstream inFile(filename);
+    if (!inFile)
+    {
+        cerr << "Error opening file for reading: " << filename << endl;
+        return;
+    }
+
+    string str1, str2;
+    vector<double> percentages;
+    double minPercentage = 100.0;
+    double maxPercentage = 0.0;
+    double totalPercentage = 0.0;
+    int count = 0;
+
+    while (inFile >> str1 >> str2)
+    {
+        str1 = Hash(str1);
+        str2 = Hash(str2);
+        int matchCount = 0;
+        int totalHexDigits = str1.length() * 2;
+
+        for (size_t i = 0; i < str1.length(); ++i)
+        {
+            string hex1 = intToHex(str1[i]);
+            string hex2 = intToHex(str2[i]);
+
+            for (size_t j = 0; j < max(hex1.length(), hex2.length()); ++j)
+            {
+                if (j < hex1.length() && j < hex2.length() && hex1[j] == hex2[j])
+                {
+                    matchCount++;
+                }
+            }
+        }
+
+        double percentage = (static_cast<double>(matchCount) / totalHexDigits) * 100.0;
+
+        minPercentage = min(minPercentage, percentage);
+        maxPercentage = max(maxPercentage, percentage);
+        totalPercentage += percentage;
+        count++;
+    }
+
+    inFile.close();
+
+    double averagePercentage = (count > 0) ? (totalPercentage / count) : 0.0;
+
+    cout << fixed << setprecision(2);
+    cout << "Lowest matching percentage: " << minPercentage << "%" << endl;
+    cout << "Highest matching percentage: " << maxPercentage << "%" << endl;
+    cout << "Average matching percentage: " << averagePercentage << "%" << endl;
 }

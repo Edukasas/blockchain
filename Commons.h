@@ -30,5 +30,8 @@ using std::setfill;
 using std::cerr;
 using std::numeric_limits;
 using std::invalid_argument;
-
+using std::min;
+using std::max;
+using std::fixed;
+using std::setprecision;
 #endif
