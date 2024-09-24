@@ -31,6 +31,7 @@ int main()
             }
         }
         else if(option == 1){
+            cout<<"Value you want to hash: ";
             getline(cin, input);
             hashValue = Hash(input);
         }
