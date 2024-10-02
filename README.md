@@ -67,6 +67,46 @@ Before running this project, ensure you have the following installed:
 After running the program, you will be prompted to enter a string or choose a filename, which already has a string. The program will process the string through the custom hash function and output the resulting hexadecimal hash.
 
 ## Experiments
+### v0.2
+
+<b>First experiment shows that my hash function: </b>
+- is deterministic
+- can handle any input
+- gives exactly 64 chars
+  
+![image](https://github.com/user-attachments/assets/d97edee8-b165-485a-b982-9cd42a02ce4a)<br>
+
+<b>Second experiment shows the speed of my hash function (no flags used):</b><br>
+- left side is speed in seconds
+- right side is number of lines given as input
+  
+![image](https://github.com/user-attachments/assets/1677f7b7-823e-4e2a-bea5-81505a2f9b94) <br>
+
+<b> Graph of the hash functions execution time based on input size </b><br>
+
+![graph](https://github.com/user-attachments/assets/ea29a891-b080-4106-a297-9b869d6e9cc9)
+ <br>
+
+<b> Based on results: </b>
+
+The algorithm likely falls into the O(n log n) complexity class
+
+<b> Third experiment shows, that my hash function is resiliant to coalitions  </b> <br>
+It was made using a file, which had 100 000 string pairs of different length <br>
+They were compared in order to find any matches, none were found <br>
+
+![image](https://github.com/user-attachments/assets/85d2565c-d96b-43a0-8681-48aa0f1a6628) <br>
+
+<b> Fourth experimemnt </b>
+- bit level
+  
+![image](https://github.com/user-attachments/assets/e48fae69-1c19-4f85-bdde-70e3ddf7c2c5) <br>
+
+- hex level
+
+![image](https://github.com/user-attachments/assets/cc51bf41-f2ab-412a-8436-c56e1dfd3468) <br>
+
+### v0.1
 <b>First experiment shows that my hash function: </b>
 - is deterministic
 - can handle any input
