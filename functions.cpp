@@ -18,31 +18,40 @@ unsigned int bitsetToInt(bitset<8> bitset)
 {
     return bitset.to_ulong();
 }
-string Hash(const string &input)
-{
+string Hash(const string &input) {
     const int hash_parts = 4;
     unsigned long long hashes[hash_parts] = {
         0xFA153BE9AB2842EAULL,
         0xBABABABA01032587ULL,
         0xC0DE15500DAFFAE7ULL,
-        0x1234567812345678ULL};
+        0x1234567812345678ULL
+    };
 
-    for (char c : input)
-    {
+    const unsigned long long prime = 0x10E93214ULL;
+    
+    for (size_t pos = 0; pos < input.size(); ++pos) {
+        char c = input[pos];
         bitset<8> binary(static_cast<unsigned char>(c));
         binary = swap4Bits(binary);
-        for (int i = 0; i < hash_parts; ++i)
-        {
-            hashes[i] ^= static_cast<unsigned long long>(bitsetToInt(binary)) * 0x10E93214ULL;
-            hashes[i] = (hashes[i] << 5) | (hashes[i] >> (64 - i));
+        unsigned long long value = static_cast<unsigned long long>(bitsetToInt(binary));
+
+        for (int i = 0; i < hash_parts; ++i) {
+            hashes[i] ^= value * prime;
+            hashes[i] = (hashes[i] * 0x5BD1E995) ^ (hashes[i] >> (i + 1));
+            hashes[i] = (hashes[i] << (5 + i)) | (hashes[i] >> (64 - (5 + i)));
         }
     }
 
+    for (int i = 0; i < hash_parts; ++i) {
+        hashes[i] ^= (hashes[(i + 1) % hash_parts] * prime) ^ (hashes[i] >> 31);
+        hashes[i] = (hashes[i] * 0x5BD1E995) ^ (hashes[i] >> 33);
+    }
+
     ostringstream result;
-    for (int i = 0; i < hash_parts; ++i)
-    {
+    for (int i = 0; i < hash_parts; ++i) {
         result << hex << setw(16) << setfill('0') << hashes[i];
     }
+
     return result.str();
 }
 string readFromFile(const string &filename)
