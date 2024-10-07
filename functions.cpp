@@ -1,6 +1,6 @@
 #include "Commons.h"
 #include "functions.h"
-
+#include "MD5.h"
 string intToHex(unsigned int byte)
 {
     stringstream hexStream;
@@ -18,19 +18,31 @@ unsigned int bitsetToInt(bitset<8> bitset)
 {
     return bitset.to_ulong();
 }
+string generateSalt(int len = 16) {
+    const char alphanum[] = "0123456789"
+                                   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                   "abcdefghijklmnopqrstuvwxyz";
+    string salt;
+    srand((time(nullptr)));
+    for (int i = 0; i < len; ++i) {
+        salt += alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+    return salt;
+}
 string Hash(const string &input) {
-    const int hash_parts = 4;
+    const int hash_parts = 3;
     unsigned long long hashes[hash_parts] = {
         0xFA153BE9AB2842EAULL,
         0xBABABABA01032587ULL,
-        0xC0DE15500DAFFAE7ULL,
-        0x1234567812345678ULL
+        0xC0DE15500DAFFAE7ULL
     };
 
     const unsigned long long prime = 0x10E93214ULL;
     
-    for (size_t pos = 0; pos < input.size(); ++pos) {
-        char c = input[pos];
+    string salt = generateSalt();
+    string saltedInput = salt + input;
+    for (size_t pos = 0; pos < saltedInput.size(); ++pos) {
+        char c = saltedInput[pos];
         bitset<8> binary(static_cast<unsigned char>(c));
         binary = swap4Bits(binary);
         unsigned long long value = static_cast<unsigned long long>(bitsetToInt(binary));
@@ -52,7 +64,7 @@ string Hash(const string &input) {
         result << hex << setw(16) << setfill('0') << hashes[i];
     }
 
-    return result.str();
+    return salt + result.str();
 }
 string readFromFile(const string &filename)
 {

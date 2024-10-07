@@ -12,7 +12,8 @@
 #include <random>
 #include <numeric>
 #include <chrono>
-
+#include <cstdlib>
+#include <ctime>
 
 using std::ifstream;
 using std::ofstream;
