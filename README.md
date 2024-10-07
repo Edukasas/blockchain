@@ -31,13 +31,13 @@ Before running this project, ensure you have the following installed:
    Compile the C++ source code using your preferred compiler. Here's an example using `g++`:
 
     ```bash
-    g++ hash_function.cpp -o hash_function
+    g++ main.cpp -o hash_function
     ```
 
     If you are using Windows and `g++` is available via MinGW or Cygwin:
 
     ```bash
-    g++ hash_function.cpp -o hash_function.exe
+    g++ main.cpp -o hash_function.exe
     ```
 
 3. **Run the program**  
@@ -79,6 +79,49 @@ Hash speed comparison in seconds
 |         10000        | 0.018556   | 0.002396  |
 |         50000        | 0.470373   | 0.056852  |
 |        100000        | 6.784238   | 0.825197  |
+
+Using MD5 was noticably quicker
+
+Hash percentage comparison
+
+<b>MD5</b>
+
+- bit level
+  
+![image](https://github.com/user-attachments/assets/2dc79e7c-18d2-4600-8b39-6b37d9a1590e)
+
+- hex level
+
+![image](https://github.com/user-attachments/assets/e7bef8ea-6cdf-4ab4-ab94-19bd67835da1)
+
+
+<b>My hash </b>
+
+- bit level
+  
+![image](https://github.com/user-attachments/assets/e48fae69-1c19-4f85-bdde-70e3ddf7c2c5) <br>
+
+- hex level
+
+![image](https://github.com/user-attachments/assets/cc51bf41-f2ab-412a-8436-c56e1dfd3468) <br>
+
+Hash functions where pretty similar in avalanche effect experiment
+
+Also my hash incorporates salt, which help with hiding and puzzle friendliness.
+It's practically impossible to reverse-engineer the output into input
+```bash
+string generateSalt(int len = 16) {
+    const char alphanum[] = "0123456789"
+                                   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                   "abcdefghijklmnopqrstuvwxyz";
+    string salt;
+    srand((time(nullptr)));
+    for (int i = 0; i < len; ++i) {
+        salt += alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+    return salt;
+}
+```
 
 ### v0.2
 
