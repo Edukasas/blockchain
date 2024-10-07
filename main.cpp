@@ -1,42 +1,31 @@
+#include "MD5.h"
 #include "Commons.h"
-#include "functions.h"
-#include <chrono>
-#include <vector>
+#include "functions.h" 
 
-int main()
-{
-    string input, hexInputString, hashValue;
-    int decimal;
-    bool option, checker;
-    ifstream file;
-    cout<<"0 - input from file, 1 - input by hand"<<endl;
-    cin >> option;
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-        throw invalid_argument("Invalid input. Please enter 0 or 1.");
-    }
-    else{
-        cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-        if(option==0){
-            cout << "File name: " << endl;
-            cin >> input;
+int main() {
+    const std::string filename = "./test_files/randomPairs/file.txt";
+    const int maxLines = 100000;
+    std::vector<double> hashTimes(5, 0.0), md5Times(5, 0.0);
 
-            file.open(input);
-            if (!file) {
-                cerr << "Error: File cannot be opened or does not exist." << endl;
-            }
-            else{
-            hashValue = Hash(readFromFile(input));
-            cout << "File hash: " << hashValue << endl;
-            }
-        }
-        else if(option == 1){
-            getline(cin, input);
-            hashValue = Hash(input);
-        }
+    for (int j = 0; j < 5; j++) {
+        std::string inputData = readLinesFromFile(filename, maxLines);
+
+        auto start = std::chrono::high_resolution_clock::now();
+        std::string hashValue = Hash(inputData);
+        auto end = std::chrono::high_resolution_clock::now();
+        hashTimes[j] = std::chrono::duration<double>(end - start).count();
+
+        auto start2 = std::chrono::high_resolution_clock::now();
+        std::string md5HashValue = MD5(inputData);
+        auto end2 = std::chrono::high_resolution_clock::now();
+        md5Times[j] = std::chrono::duration<double>(end2 - start2).count();
     }
-    cout << "Hash: " << hashValue << endl;
+
+    std::cout << "Average Time Taken for Hash Function: " << std::fixed << std::setprecision(6)
+              << std::accumulate(hashTimes.begin(), hashTimes.end(), 0.0) / hashTimes.size() << " seconds" << std::endl;
+
+    std::cout << "Average Time Taken for MD5 Function: " << std::fixed << std::setprecision(6)
+              << std::accumulate(md5Times.begin(), md5Times.end(), 0.0) / md5Times.size() << " seconds" << std::endl;
+
+    return 0;
 }
-

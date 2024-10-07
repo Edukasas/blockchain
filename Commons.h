@@ -10,6 +10,9 @@
 #include <iomanip>
 #include <limits>
 #include <random>
+#include <numeric>
+#include <chrono>
+
 
 using std::ifstream;
 using std::ofstream;
