@@ -67,6 +67,19 @@ Before running this project, ensure you have the following installed:
 After running the program, you will be prompted to enter a string or choose a filename, which already has a string. The program will process the string through the custom hash function and output the resulting hexadecimal hash.
 
 ## Experiments
+
+### v0.3
+
+Hash speed comparison in seconds
+
+| Number of Lines Read |   MyHash   |   MD5     |
+|----------------------|------------|-----------|
+|          1000        | 0.001995   | 0.000199  |
+|          5000        | 0.009381   | 0.000998  |
+|         10000        | 0.018556   | 0.002396  |
+|         50000        | 0.470373   | 0.056852  |
+|        100000        | 6.784238   | 0.825197  |
+
 ### v0.2
 
 <b>First experiment shows that my hash function: </b>
